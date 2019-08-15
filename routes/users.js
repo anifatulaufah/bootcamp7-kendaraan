@@ -57,7 +57,6 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
     let { id } = req.params
     let updated_data = {
-        user_id: req.body.name,
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,

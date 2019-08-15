@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
         return res.status(200).json({
             status: "success",
             data,
-            message: "User created successfully!"
+            message: "Transport created successfully!"
         })
     } catch(err) {
         return res.status(400).json({
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
         return res.send({
             status: "success",
             data,
-            message: "Get all user data"
+            message: "Get all transport data"
         })
     } catch(err) {
         return res.status(400).json({
@@ -44,7 +44,7 @@ router.get("/:id", async (req, res) => {
         return res.status(200).json({
             status: "success",
             data,
-            message: "Get user detail successfully!"
+            message: "Get transport detail successfully!"
         })
     } catch(err) {
         return res.status(400).json({
@@ -57,10 +57,10 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
     let { id } = req.params
     let updated_data = {
-        user_id: req.body.name,
         brand: req.body.brand,
         type: req.body.type,
         cc: req.body.cc,
+        user_id: req.body.user_id,
         fresh: req.body.fresh
     }
 

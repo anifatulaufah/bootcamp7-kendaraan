@@ -1,10 +1,9 @@
 const User = require("../models/user")
 
 const create = async (req) => {
-    let { user_id, name, email, phone } = req.body
+    let { name, email, phone } = req.body
     phone = parseInt(phone)
     var insert_data = {
-        user_id,
         name,
         email,
         phone
@@ -26,7 +25,6 @@ const getAll = async () => {
         let query = await User.find({}).exec()
         let data = query.map((v, i) => {
             return {
-                user_id: v.user_id,
                 name: v.name,
                 email: v.email,
                 phone: v.phone
@@ -40,12 +38,11 @@ const getAll = async () => {
 }
 
 const update = async (id, updated_data) => {
-    let {user_id, name, email, phone, fresh } = updated_data
+    let { name, email, phone, fresh } = updated_data
     let opts = {
         new: fresh === "true" ? true : false
     }
     let data = {
-        user_id,
         name,
         email,
         phone

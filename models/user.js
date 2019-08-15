@@ -6,7 +6,6 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 let userSchema = new Schema({
-    user_id:Number,
     name: String,
     email: String,
     phone: Number,

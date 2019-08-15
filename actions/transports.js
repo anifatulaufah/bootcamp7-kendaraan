@@ -1,12 +1,13 @@
 const Transport = require("../models/transport")
+const User = require("../models/user")
 
 const create = async (req) => {
-    let { user_id, brand, type, cc } = req.body
+    let { brand, type, cc, user_id } = req.body
     var insert_data = {
-        user_id,
         brand,
         type,
-        cc
+        cc,
+        user_id
     }
 
     let data = new Transport(insert_data)
@@ -21,37 +22,32 @@ const create = async (req) => {
 }
 
 const getAll = async () => {
-    try {
-        let query = await User.find({}).exec()
-        let data = query.map((v, i) => {
-            return {
-                user_id: v.user_id,
-                brand: v.brand,
-                type: v.type,
-                cc: v.cc
-            }
-        })
+    let query = await Transport.find({})
+    .populate([
+        {
+            path: 'user_id',
+            model: User
+        }
+    ]).exec()
+    console.log(`Result ${query}`)
 
-        return data
-    } catch(err) {
-        throw err
+    return query
     }
-}
 
 const update = async (id, updated_data) => {
-    let {user_id, brand, type, cc, fresh } = updated_data
+    let { brand, type, cc, fresh,user_id} = updated_data
     let opts = {
         new: fresh === "true" ? true : false
     }
     let data = {
-        user_id,
         brand,
         type,
-        cc
+        cc,
+        user_id
     }
 
     try {
-        let query = await User.findOneAndUpdate({
+        let query = await Transport.findOneAndUpdate({
             _id: id
         }, data, opts).exec()
 
@@ -62,7 +58,7 @@ const update = async (id, updated_data) => {
 }
 const destroy = async (id) => {
     try {
-        let query = await User.findOneAndDelete({
+        let query = await Transport.findOneAndDelete({
             _id: id
         }).exec()
 
@@ -73,7 +69,7 @@ const destroy = async (id) => {
 }
 const getDetail = async (id) => {
     try {
-        let query = await User.findOne({
+        let query = await Transport.findOne({
             _id: id
         }).exec()
 
